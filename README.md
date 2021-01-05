@@ -1,64 +1,87 @@
-# SimplyLogger
-> A simple logger for Swift.
+# CoreTempMonitorSwift
+> A simple API for read AlCPU CoreTemp data to make your own Monitor App for iOS, macOS, watchOS or tvOS.
 
 ## Installation
 Use Swift Package Manager to add this package to your project.
 
 ## Definition & Interface
 ```swift
-public static func log(str: String, logToSystem: Bool? = false, category: LogCategory, type: OSLogType? = .debug, log: OSLog? = .default)
+public convenience init(ip: String, port: String , using: NWParameters)
 ```
-- str (String): logging message
-- logToSystem (Bool): parameter for write log in system log console or not. Default is FALSE.
-- category (enum): the log category options:
-    ```swift 
-    public enum LogCategory: String {
-        case info = "✅"
-        case warning = "⚠️"
-        case error = "🧨"
-        case viewcycle = "📱"
-        case data = "🗄"
-        case service = "📬"
-        case trace = "ℹ️"
-    }
-    ```
+- ip (String): endpoint of machine where CoreTempServer is running.
+- port (String): the port number where CoreTempServer is publishing the data.
+- using (NWParameters): enumerated that defines the protocol to read data.
 
-- type (OSLogType): type of OSLog for system console.
-- log (OSLog): the log write.
+## Entities
+All data info has been strcutured in following objects
+```swift
+//
+import Foundation
+struct CpuInfo: Codable {
+    var uiLoad: [Int]?
+    var uiTjMax: [Int]?
+    var uiCoreCnt: Int?
+    var uiCPUCnt: Int?
+    var fTemp: [Int]?
+    var fVID: Float?
+    var fCPUSpeed: Float?
+    var fFSBSpeed: Float?
+    var fMultiplier: Int?
+    var CPUName: String?
+    var ucFahrenheit: Int?
+    var ucDeltaToTjMax: Int?
+    var ucTdpSupported: Int?
+    var ucPowerSupported: Int?
+    var uiStructVersion: Int?
+    var  uiTdp: [Int]?
+    var fPower: [Float]?
+    var fMultipliers: [Int]?
+}
+
+struct MemoryInfo: Codable {
+    var TotalPhys: Int64?
+    var FreePhys: Int64?
+    var TotalPage: Int64?
+    var FreePage: Int64?
+    var TotalVirtual: Int64?
+    var FreeVirtual: Int64?
+    var FreeExtendedVirtual: Int?
+    var MemoryLoad: Int?
+}
+
+public struct CoreTempObject: Codable {
+    var CpuInfo: CpuInfo?
+    var MemoryInfo: MemoryInfo?
+}
+```
+Use each one for design your monitor.
 
 ## Usage example
-### Custom Log
+### Initialize
+Object instance runs the socket read. If you want to stop the reading call stop() function directly.
 ```swift
 //
 import UIKit
-import os.log
+import CoreTempMonitorSwift
 
 class ViewController: UIViewController {
-
+    let sManager = SocketManager(ip: "192.168.1.69", port: "5200", using: .tcp)
     override func viewDidLoad() {
         super.viewDidLoad()
-        SimplyLogger.log(str: "Testing logging", logToSystem: true, category: .error, type: .error)
+        sManager.delegate = self
+    }
+    @IBAction func stop_tapped(_ sender: Any) {
+        sManager.stop()
+    }
+}
+
+extension ViewController: CoreTempMonitorSwiftDelegate {
+    func didReadData(data: CoreTempObject) {
+        //do something
     }
 }
 ```
-### Logging traces
-```swift
-//
-import UIKit
-import os.log
 
-class ViewController: UIViewController {
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        SimplyLogger.trace(str: "view did loaded")
-    }
-}
-```
-Also, you can do a complex trace using custom log with "trace" category.
-```swift 
- SimplyLogger.log(str: "Testing logging", logToSystem: true, category: .trace, type: .debug)
-```
 
 ## Meta
 
@@ -69,15 +92,5 @@ Distributed under the MIT license. See ``LICENSE`` for more information.
 [https://github.com/CodeNationDev/](https://github.com/CodeNationDev)
 
 ## Version History
-* 0.0.6
-  * Add compatibility with watchOS, macOS and tvOS.
-* 0.0.5
-  * Set Swift minumim version to 5.0.
-* 0.0.4
-  * Add date time to log trace.
-* 0.0.3
-  * Adjust iOS version to 11.
-* 0.0.2
-  * Add Swift Package Manager Support.
 * 0.0.1
     * First implementation with main features.
