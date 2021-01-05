@@ -2,8 +2,13 @@
 import Foundation
 import Network
 
+public protocol CoreTempMonitorSwiftDelegate {
+    func didReadData(data: CoreTempObject)
+}
+
 public class SocketManager {
     var conn: NWConnection?
+    public var delegate: CoreTempMonitorSwiftDelegate?
     
     public convenience init(ip: String, port: String , using: NWParameters) {
         self.init()
@@ -42,9 +47,8 @@ public class SocketManager {
         connection.receive(minimumIncompleteLength: 1, maximumLength: 65536) { (data, contentContext, isComplete, error) in
             if let data = data, !data.isEmpty {
                 do {
-                    print("did receive \(data.count) bytes")
                     let decoded = try JSONDecoder().decode(CoreTempObject.self, from: data)
-                    print(decoded)
+                    self.delegate?.didReadData(data: decoded)
                 } catch let error {
                     print(error.localizedDescription)
                 }

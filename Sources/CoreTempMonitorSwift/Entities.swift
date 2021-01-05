@@ -32,44 +32,7 @@ struct MemoryInfo: Codable {
     var MemoryLoad: Int?
 }
 
-struct CoreTempObject: Codable {
+public struct CoreTempObject: Codable {
     var CpuInfo: CpuInfo?
     var MemoryInfo: MemoryInfo?
 }
-
-
-let json =
-"""
-{
-    "CpuInfo": {
-        "uiLoad": [2, 14],
-        "uiTjMax": [100],
-        "uiCoreCnt": 2,
-        "uiCPUCnt": 1,
-        "fTemp": [29, 32],
-        "fVID": 1.11352539,
-        "fCPUSpeed": 3702.701,
-        "fFSBSpeed": 100.073,
-        "fMultiplier": 37,
-        "CPUName": "Intel Core i3 6100 (Skylake) ",
-        "ucFahrenheit": 0,
-        "ucDeltaToTjMax": 0,
-        "ucTdpSupported": 1,
-        "ucPowerSupported": 1,
-        "uiStructVersion": 2,
-        "uiTdp": [65],
-        "fPower": [16.9173222],
-        "fMultipliers": [37, 37]
-    },
-    "MemoryInfo": {
-        "TotalPhys": 8145,
-        "FreePhys": 5378,
-        "TotalPage": 10008,
-        "FreePage": 4941,
-        "TotalVirtual": 134217728,
-        "FreeVirtual": 134212948,
-        "FreeExtendedVirtual": 1,
-        "MemoryLoad": 33
-    }
-}
-"""
