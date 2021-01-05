@@ -54,6 +54,15 @@ public struct CoreTempObject: Codable {
     var MemoryInfo: MemoryInfo?
 }
 ```
+
+The most relevant info for this objects is:
+
+> - **ucFahrenheit**, **ucDeltaToTjMax**, **ucTdpSupported** and **ucPowerSupported** represent boolean values. 0 = false, 1 = true.
+> - If **ucFahrenheit** is true, the temperature is reported in Fahrenheit.
+> - If **ucDeltaToTjMax** is true, the temperature reported represents the distance from TjMax.
+> - If **ucTdpSupported** is true, processor TDP information in the uiTdp array is valid.
+> - If **ucPowerSupported** is true, processor power consumption information in the fPower array is valid.
+
 Use each one for design your monitor.
 
 ## Usage example
