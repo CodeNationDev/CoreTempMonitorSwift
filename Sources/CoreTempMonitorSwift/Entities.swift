@@ -1,38 +1,38 @@
 //
 import Foundation
-struct CpuInfo: Codable {
-    var uiLoad: [Int]?
-    var uiTjMax: [Int]?
-    var uiCoreCnt: Int?
-    var uiCPUCnt: Int?
-    var fTemp: [Int]?
-    var fVID: Float?
-    var fCPUSpeed: Float?
-    var fFSBSpeed: Float?
-    var fMultiplier: Int?
-    var CPUName: String?
-    var ucFahrenheit: Int?
-    var ucDeltaToTjMax: Int?
-    var ucTdpSupported: Int?
-    var ucPowerSupported: Int?
-    var uiStructVersion: Int?
-    var  uiTdp: [Int]?
-    var fPower: [Float]?
-    var fMultipliers: [Int]?
+public struct CpuInfo: Codable {
+    public var uiLoad: [Int]?
+    public var uiTjMax: [Int]?
+    public var uiCoreCnt: Int?
+    public var uiCPUCnt: Int?
+    public var fTemp: [Int]?
+    public var fVID: Float?
+    public var fCPUSpeed: Float?
+    public var fFSBSpeed: Float?
+    public var fMultiplier: Int?
+    public var CPUName: String?
+    public var ucFahrenheit: Int?
+    public var ucDeltaToTjMax: Int?
+    public var ucTdpSupported: Int?
+    public var ucPowerSupported: Int?
+    public var uiStructVersion: Int?
+    public var  uiTdp: [Int]?
+    public var fPower: [Float]?
+    public var fMultipliers: [Int]?
 }
 
-struct MemoryInfo: Codable {
-    var TotalPhys: Int64?
-    var FreePhys: Int64?
-    var TotalPage: Int64?
-    var FreePage: Int64?
-    var TotalVirtual: Int64?
-    var FreeVirtual: Int64?
-    var FreeExtendedVirtual: Int?
-    var MemoryLoad: Int?
+public struct MemoryInfo: Codable {
+    public var TotalPhys: Int64?
+    public var FreePhys: Int64?
+    public var TotalPage: Int64?
+    public var FreePage: Int64?
+    public var TotalVirtual: Int64?
+    public var FreeVirtual: Int64?
+    public var FreeExtendedVirtual: Int?
+    public var MemoryLoad: Int?
 }
 
 public struct CoreTempObject: Codable {
-    var CpuInfo: CpuInfo?
-    var MemoryInfo: MemoryInfo?
+    public var CpuInfo: CpuInfo?
+    public var MemoryInfo: MemoryInfo?
 }

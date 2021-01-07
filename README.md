@@ -2,7 +2,17 @@
 > A simple API for read AlCPU CoreTemp data to make your own Monitor App for iOS, macOS, watchOS or tvOS.
 
 ## Installation
-Use Swift Package Manager to add this package to your project.
+
+### CoreTemp + CoreTempRemoteServer Addon
+Firstly, install CoreTemp and CoreTempRemoteServer addon for start to receive data by net socket from following URLs:
+CoreTemp main program: https://www.alcpu.com/CoreTemp/Core-Temp-setup.exe
+RemoteServer Addon: https://www.alcpu.com/CoreTemp/AddOns/CoreTempRemoteServer.zip
+
+Configure port number of RemoteServer and start it.
+
+### Swift size
+
+Add the Swift Package to your project from url: https://github.com/CodeNationDev/CoreTempMonitorSwift.git
 
 ## Definition & Interface
 ```swift
